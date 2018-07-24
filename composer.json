@@ -1,0 +1,8 @@
+{
+    "name": "binz/bin-jwt",
+    "description": "My Jwt Auth",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {}
+}

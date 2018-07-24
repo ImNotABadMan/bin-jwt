@@ -1,6 +1,9 @@
 {
     "name": "binz/bin-jwt",
     "description": "My Jwt Auth",
+    "author":{
+      "name":"bin zheng"
+    },
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",

@@ -6,7 +6,6 @@
     },
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "beta",
     "require": {},
     "autoload":{
         "psr-4":{

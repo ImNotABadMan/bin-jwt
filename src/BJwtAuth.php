@@ -64,7 +64,7 @@ Class BJwtAuth extends BaseBJwtAuth
     public function login(...$params)
     {
         // TODO: Implement login() method.
-        if (func_num_args() == 0) {
+        if (func_num_args() == 1) {
             $data = $this->isCan($params[0]);
         } else {
             $data = $this->isCan($params[0], $params[1]);

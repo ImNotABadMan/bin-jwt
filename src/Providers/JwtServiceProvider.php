@@ -6,7 +6,7 @@
  * Time: 14:53
  */
 
-namespace Jwts;
+namespace Jwt;
 
 use Illuminate\Support\ServiceProvider;
 

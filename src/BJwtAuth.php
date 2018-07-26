@@ -6,7 +6,7 @@
  * Time: 14:13
  */
 
-namespace Jwts;
+namespace Jwt;
 
 use App\User;
 use Illuminate\Support\Facades\DB;

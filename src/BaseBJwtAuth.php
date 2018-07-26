@@ -6,7 +6,7 @@
  * Time: 16:45
  */
 
-namespace Jwts;
+namespace Jwt;
 
 
 class BaseBJwtAuth

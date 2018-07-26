@@ -6,7 +6,7 @@
  * Time: 15:40
  */
 
-namespace Jwts;
+namespace Jwt;
 
 use Illuminate\Support\Facades\Facade;
 

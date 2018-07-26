@@ -12,5 +12,15 @@
         "psr-4":{
             "Jwt\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jwt\\JwtServiceProvider"
+            ],
+            "aliases": {
+                "Jwt": "Jwt\\BJwtAuthFacade"
+            }
+        }
     }
 }

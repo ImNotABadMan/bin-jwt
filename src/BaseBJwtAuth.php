@@ -85,7 +85,7 @@ abstract class BaseBJwtAuth
     /**
      * $flag json_decode 的第二格参数
     */
-    public function decodeToken($token, $flag = false)
+    public function decodeToken($token, $flag = true)
     {
         list($header, $payload, $signature) = explode('.', $token);
 
@@ -124,7 +124,6 @@ abstract class BaseBJwtAuth
         list($header, $payload, $signature) = explode('.', $token);
 
         $decodeArr = $this->decodeToken($token, true);
-
         $this->_header['alg'] = $decodeArr["header"]['alg'];
         $this->_payload['iat'] = $decodeArr["payload"]['iat'];
         $this->_payload['exp'] = $decodeArr["payload"]['exp'];
@@ -133,7 +132,7 @@ abstract class BaseBJwtAuth
             return false;
         }
 
-        $localSignature = hash_hmac($this->_algMap[$decodeArr["header"]['alg']], strrchr($token, '.'), $this->_config['jwt_secret']);
+        $localSignature = hash_hmac($this->_algMap[$decodeArr["header"]['alg']], str_replace(strrchr($token, '.') , '', $token), $this->_config['jwt_secret']);
 
         if( strpos($signature, $localSignature) !== 0){
             return false;

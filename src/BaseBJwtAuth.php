@@ -155,10 +155,10 @@ abstract class BaseBJwtAuth
     public function getpayload($params = [])
     {
         $payload = [
-            'iss' => $this->_config['payload.iss'], // 发布token的一方
-            'sub' => $this->_config['payload.sub'], // token的主题
+            'iss' => $this->_config['payload']['iss'], // 发布token的一方
+            'sub' => $this->_config['payload']['sub'], // token的主题
             'aud' => '', // 接受token的一方
-            'exp' => $this->_config['payload.exp'], // 过期时长
+            'exp' => $this->_config['payload']['exp'], // 过期时长
             'iat' => '', // token创建时间
         ];
 

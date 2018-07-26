@@ -9,7 +9,7 @@
 namespace Jwt;
 
 
-class BaseBJwtAuth
+abstract class BaseBJwtAuth
 {
     protected $_config;
 
@@ -141,6 +141,33 @@ class BaseBJwtAuth
 
         return true;
     }
+
+    public function getHeader($params = [])
+    {
+        $header = [
+            'typ' => 'jwt',
+            'alg' => $this->_config['alg']
+        ];
+        $header = array_merge($header, $params);
+        return $header;
+    }
+
+    public function getpayload($params = [])
+    {
+        $payload = [
+            'iss' => $this->_config['payload.iss'], // 发布token的一方
+            'sub' => $this->_config['payload.sub'], // token的主题
+            'aud' => '', // 接受token的一方
+            'exp' => $this->_config['payload.exp'], // 过期时长
+            'iat' => '', // token创建时间
+        ];
+
+        $payload = array_merge($payload, $params);
+
+        return $payload;
+    }
+
+    public abstract function login(...$params);
 }
 
 

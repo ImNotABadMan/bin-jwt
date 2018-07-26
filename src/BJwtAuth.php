@@ -32,7 +32,7 @@ Class BJwtAuth extends BaseBJwtAuth
         return 'JwtFacade';
     }
 
-    public function isCan(...$params)
+    protected function isCan(...$params)
     {
         if( is_array($params) && func_num_args() == 1 ){
             $email = $params[0]['email'];
@@ -54,7 +54,24 @@ Class BJwtAuth extends BaseBJwtAuth
             return false;
         }
 
-        return true;
+        return $data;
+    }
+
+    public function login(...$params)
+    {
+        // TODO: Implement login() method.
+       $data = $this->isCan($params);
+       if( $data ){
+           $header = $this->getHeader();
+           $data = [
+               'email'  => $data->email,
+               'iat'    => date('Y-m-d H:i:s'),
+               'aud'    => $_SERVER['REMOTE_ADDR'],
+           ];
+           $payload = $this->getpayload($data);
+       }
+       $returnToken = $this->getToken($header, $payload);
+       return $returnToken;
     }
 
 }

@@ -34,7 +34,7 @@ Class BJwtAuth extends BaseBJwtAuth
 
     protected function isCan(...$params)
     {
-        if( !array_key_exists('email', $params[0]) || array_key_exists('password', $params[0]) ){
+        if( !array_key_exists('email', $params[0]) || !array_key_exists('password', $params[0]) ){
             return false;
         }
         if( is_array($params) && func_num_args() == 1 ){
@@ -64,16 +64,18 @@ Class BJwtAuth extends BaseBJwtAuth
     {
         // TODO: Implement login() method.
        $data = $this->isCan($params);
-       if( $data ){
+       if( $data ) {
            $header = $this->getHeader();
            $data = [
-               'email'  => $data->email,
-               'iat'    => date('Y-m-d H:i:s'),
-               'aud'    => $_SERVER['REMOTE_ADDR'],
+               'email' => $data->email,
+               'iat' => date('Y-m-d H:i:s'),
+               'aud' => $_SERVER['REMOTE_ADDR'],
            ];
            $payload = $this->getpayload($data);
+           $returnToken = $this->getToken($header, $payload);
+       }else{
+           $returnToken = '';
        }
-       $returnToken = $this->getToken($header, $payload);
        return $returnToken;
     }
 

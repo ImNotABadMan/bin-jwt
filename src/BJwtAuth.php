@@ -50,6 +50,7 @@ Class BJwtAuth extends BaseBJwtAuth
         $data = DB::selectOne("select * from {$this->_table} where email = :email", [
             ":email"    => $email
         ]);
+
         if( empty($data) ){
             return false;
         }
@@ -63,20 +64,24 @@ Class BJwtAuth extends BaseBJwtAuth
     public function login(...$params)
     {
         // TODO: Implement login() method.
-       $data = $this->isCan($params);
-       if( $data ) {
-           $header = $this->getHeader();
-           $data = [
-               'email' => $data->email,
-               'iat' => date('Y-m-d H:i:s'),
-               'aud' => $_SERVER['REMOTE_ADDR'],
-           ];
-           $payload = $this->getpayload($data);
-           $returnToken = $this->getToken($header, $payload);
-       }else{
-           $returnToken = '';
-       }
-       return $returnToken;
+        if (func_num_args() == 0) {
+            $data = $this->isCan($params[0]);
+        } else {
+            $data = $this->isCan($params[0], $params[1]);
+        }
+        if ($data) {
+            $header = $this->getHeader();
+            $data = [
+                'email' => $data->email,
+                'iat' => date('Y-m-d H:i:s'),
+                'aud' => $_SERVER['REMOTE_ADDR'],
+            ];
+            $payload = $this->getpayload($data);
+            $returnToken = $this->getToken($header, $payload);
+        } else {
+            $returnToken = '';
+        }
+        return $returnToken;
     }
 
 }

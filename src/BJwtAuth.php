@@ -34,6 +34,9 @@ Class BJwtAuth extends BaseBJwtAuth
 
     protected function isCan(...$params)
     {
+        if( !array_key_exists('email', $params[0]) || array_key_exists('password', $params[0]) ){
+            return false;
+        }
         if( is_array($params) && func_num_args() == 1 ){
             $email = $params[0]['email'];
             $password = $params[0]['password'];

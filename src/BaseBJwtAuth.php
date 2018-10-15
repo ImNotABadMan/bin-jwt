@@ -93,8 +93,10 @@ abstract class BaseBJwtAuth
     {
         list($header, $payload, $signature) = explode('.', $token);
 
+        $truePayload = substr($payload, -4);
+
         $headerDecode = json_decode(base64_decode($header), $flag);
-        $payloadDecode = json_decode(base64_decode($payload), $flag);
+        $payloadDecode = json_decode(base64_decode($truePayload), $flag);
 
         return [
             "header"    => $headerDecode,

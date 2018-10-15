@@ -36,6 +36,9 @@ abstract class BaseBJwtAuth
         'HS256' => 'sha256'
     ];
 
+    // payload加盐的长度
+    protected $_payloadSaltLength = 4;
+
     public function __construct()
     {
         $this->_config = config('jwt');
@@ -83,6 +86,7 @@ abstract class BaseBJwtAuth
     }
 
     /**
+     * 核心解密json token
      * $flag json_decode 的第二格参数
     */
     public function decodeToken($token, $flag = true)
@@ -99,10 +103,14 @@ abstract class BaseBJwtAuth
         ];
     }
 
+    /**
+     * 核心加密json
+     */
     public function encodeToken($header, $payload)
     {
         $headerEncode = base64_encode(json_encode($header));
-        $payloadEncode = base64_encode(json_encode($payload));
+        $payloadSalt = substr(base64_encode(current($payload)), 0, $this->_payloadSaltLength);
+        $payloadEncode = base64_encode(json_encode($payload)) . $payloadSalt;
 
         $encode = $headerEncode . '.'. $payloadEncode;
         $signature = hash_hmac($this->_algMap[$header['alg']], $encode, $this->_config['jwt_secret']);
